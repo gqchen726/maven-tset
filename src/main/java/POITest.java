@@ -57,7 +57,7 @@ public class POITest {
             cell2.setCellStyle(cellStyle2);
             cell2.setCellValue(new Date());
 
-            row1.createCell(3).setCellValue(2);
+            row1.createCell(3).setCellValue(2.23786413205627584236511234456);
 
             // 保留两位小数
             HSSFCellStyle cellStyle3 = workbook.createCellStyle();
