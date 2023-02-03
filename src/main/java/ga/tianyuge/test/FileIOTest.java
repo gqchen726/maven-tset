@@ -633,6 +633,12 @@ public class FileIOTest {
         CloseableHttpResponse execute = httpClient.execute(httpPost);
 
         InputStream inputStream = execute.getEntity().getContent();
-
+        File file = new File("D:\\temp\\a.docx");
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        byte[] a = new byte[1024];
+        while (inputStream.read(a) != -1) {
+            fileOutputStream.write(a);
+        }
+        fileOutputStream.flush();
     }
 }
