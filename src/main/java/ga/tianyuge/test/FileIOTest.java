@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -612,33 +614,44 @@ public class FileIOTest {
     }
 
     @Test
-    public void downloadFileTest() throws IOException {
+    public void downloadFileTest() {
         String fileUrl = "http://10.10.101.71:9000/dev-private-bucket/purchase-contract/3/522b202304d44b1b9c75f8703b7c62e0@测试合同-炼化-1018-cyq.docx";
         // 1、创建一个httpClient客户端对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
         // 2、创建一个HttpPost请求
-        HttpPost httpPost = new HttpPost(fileUrl);
-        httpPost.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
-        httpPost.setHeader("Accept-Encoding", "gzip, deflate");
-        httpPost.setHeader("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6");
-        httpPost.setHeader("Cookie", "tenantId=3; companyId=0; groupId=3; language=zh_CN; access_token=4fee2e29-6e17-4b49-baea-210abe64c02d; refresh_token=fb4cde0b-986d-4bb4-84b1-a27850591395; JSESSIONID=oD0tBiS3pM_3rPPiP7Ty1osyMO79vol7GRKo0Ije");
-        httpPost.setHeader("Connection", "keep-alive");
-        httpPost.setHeader("Content-Type", "application/json;charset=UTF-8");
-        httpPost.setHeader("Content-Length", "76");
-        httpPost.setHeader("DNT", "1");
-        httpPost.setHeader("Upgrade-Insecure-Requests", "1");
-        httpPost.setHeader("Host", "shsrm.shenghongpec.com:38080");
-        httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36");
+        HttpGet http = new HttpGet(fileUrl);
+        http.setHeader("Accept", "*/*");
+        http.setHeader("Accept-Encoding", "gzip, deflate, br");
+        http.setHeader("Connection", "keep-alive");
+        http.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36");
 
-        CloseableHttpResponse execute = httpClient.execute(httpPost);
+        FileOutputStream fileOutputStream = null;
+        InputStream inputStream = null;
+        try {
+            CloseableHttpResponse execute = httpClient.execute(http);
 
-        InputStream inputStream = execute.getEntity().getContent();
-        File file = new File("D:\\temp\\a.docx");
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        byte[] a = new byte[1024];
-        while (inputStream.read(a) != -1) {
-            fileOutputStream.write(a);
+            inputStream = execute.getEntity().getContent();
+            File file = new File("D:\\temp\\a.docx");
+            fileOutputStream = new FileOutputStream(file);
+            int b;
+            while ((b = inputStream.read()) != -1) {
+                fileOutputStream.write(b);
+            }
+            fileOutputStream.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fileOutputStream.close();
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        fileOutputStream.flush();
+
     }
 }
