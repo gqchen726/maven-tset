@@ -66,4 +66,16 @@ public class Test {
             e.printStackTrace();
         }
     }
+
+    @org.junit.Test
+    public void tet1() {
+        String esItemCode = "01010280000001";
+        // 物料编码长度14位，如果不足用前导零补足
+        if (esItemCode.length() < 14) {
+            System.out.println(esItemCode.length());
+            esItemCode = "00000000000000".substring(0, 14-esItemCode.length()) + esItemCode;
+            System.out.println(esItemCode);
+            System.out.println(esItemCode.length());
+        }
+    }
 }

@@ -17,4 +17,17 @@ public class NullPointExceptionTest {
                 System.out.println("1");
         }
     }
+
+    @Test
+    public void equalsTest() {
+        Integer a = null;
+//        System.out.println(a == 0);
+        try {
+            System.out.println(0 == a);
+
+        } catch (Exception e) {
+            System.out.println(e.getCause().toString());
+        }
+//        System.out.println();
+    }
 }

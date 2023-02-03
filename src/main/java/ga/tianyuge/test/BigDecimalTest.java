@@ -1,8 +1,10 @@
 package ga.tianyuge.test;
 
+import ga.tianyuge.bean.Employee;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.awt.EmbeddedFrame;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -194,6 +196,7 @@ public class BigDecimalTest {
     public void errorTest1() {
         BigDecimal a = new BigDecimal("8.000000000");
         BigDecimal b = new BigDecimal("0E-10");
+        System.out.println(b.toPlainString() + "是否为零: " + BigDecimal.ZERO.equals(b));
         b = b.stripTrailingZeros();
         System.out.println(b.toPlainString() + "是否为零: " + BigDecimal.ZERO.equals(b));
         BigDecimal c = a.subtract(b);
@@ -205,6 +208,42 @@ public class BigDecimalTest {
         System.out.println(result.toPlainString());
     }
 
+    @Test
+    public void errorTest2() {
+        BigDecimal bigDecimal1 = BigDecimal.valueOf(123123.1231);
+        BigDecimal bigDecimal2 = new BigDecimal("10420317.090000000000000");
+        BigDecimal add = bigDecimal1.add(new BigDecimal(bigDecimal2.toString()));
+        System.out.println(add);
+
+    }
+
+    @Test
+    public void errorTest3() {
+        BigDecimal bigDecimal2 = new BigDecimal("104203345234562435324617.090000000000000000003450004564000000");
+        Employee employee = new Employee();
+        employee.setPrice(bigDecimal2);
+        System.out.println(employee.getPrice().stripTrailingZeros().toPlainString());
+
+
+        // stream
+
+        // key
+
+        // for stream map
+        // key in map
+    }
+    @Test
+    public void errorTest4() {
+        BigDecimal bigDecimal = new BigDecimal("999999999999999999999999999.9999999");
+        String s = bigDecimal.toPlainString();
+        if (s.contains(".")) {
+            String[] split = s.split("\\.");
+            System.out.println(s);
+            System.out.println(split.length);
+            System.out.println(split[0]);
+            System.out.println(split[1]);
+        }
+    }
 
 
     /**
