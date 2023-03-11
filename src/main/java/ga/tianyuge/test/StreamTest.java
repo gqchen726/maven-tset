@@ -28,7 +28,8 @@ public class StreamTest {
     @Test
     public void reduceTest1() {
         List<Employee> result = new ArrayList<>();
-//        result.add(new Employee("1", "1", new HashMap<>()));
+        result.add(new Employee("1", "1", new HashMap<>()));
+        result.add(new Employee("1", "2", new HashMap<>()));
         /*Map<String, String> collect =
                 result.stream()
                         .collect(Collectors.toMap(Employee::getApprovalStatus, Employee::getApproverCode, (k1, k2) -> k2));*/
@@ -38,7 +39,23 @@ public class StreamTest {
                         .filter(t -> Objects.nonNull(t.getEmployeeId()))
                         .collect(Collectors.toList());
         System.out.println(collect);*/
-        result.stream().collect(Collectors.toMap(Employee::getName, Employee::getEmployeeCode, (k1, k2) -> k2));
+//        List<Employee> test1 = new ArrayList<>();
+//        Map<String, List<Employee>> collect = result.stream()
+//                .sorted(Comparator.comparing(Employee::getPrice))
+//                .collect(Collectors.groupingBy(Employee::getEmployeeCode));
 
+        Map<String, String> collect = result.stream()
+                .sorted(Comparator.comparing(Employee::getPrice))
+                .collect(Collectors.toMap(Employee::getName, Employee::getEmployeeCode, (k1, k2) -> k2));
+
+//        Map<String, String> collect1 = result.stream()
+//                .sorted(Comparator.comparing(Employee::getPrice))
+//                .collect(Collectors.toMap(Employee::getEmployeeCode, Employee::getName, (v1, v2) -> v1));
+
+        /*collect.forEach((str, list) -> {
+            test1.add(list.stream()
+                    .sorted(Comparator.comparing(Employee::getPrice).reversed())
+                    .collect(Collectors.toList()).get(0));
+        });*/
     }
 }

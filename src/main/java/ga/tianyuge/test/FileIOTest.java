@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -229,13 +230,27 @@ public class FileIOTest {
                 break;
             }
             s = s.trim();
-            stringBuilder.append(
-                    s.replace("\\", "")
-                        .replaceAll("\"\\[", "\\[")
-                        .replace("]\"", "]")
-                        .replace("\"{", "{")
-                        .replace("}\"", "}")
-            );
+            s = s
+//                        .replace("\\", "")
+                    .replace(",\\\"", ",\"")
+                    .replace("\\\"", "\"")
+                    .replace("\\\":", "\":")
+                    .replace(":\\\"", ":\"")
+                    .replaceAll("\"\\[", "\\[")
+                    .replace("]\"", "]")
+                    .replace("\"{", "{")
+                    .replace("}\"", "}");
+            s = s
+//                        .replace("\\", "")
+                    .replace(",\\\"", ",\"")
+                    .replace("\\\"", "\"")
+                    .replace("\\\":", "\":")
+                    .replace(":\\\"", ":\"")
+                    .replaceAll("\"\\[", "\\[")
+                    .replace("]\"", "]")
+                    .replace("\"{", "{")
+                    .replace("}\"", "}");
+            stringBuilder.append(s);
         }
 //        stringBuilder.replace(stringBuilder.length()-2, stringBuilder.length()-1, "");
         /*// 删除头尾引号
@@ -264,13 +279,35 @@ public class FileIOTest {
                 break;
             }
             s = s.trim();
+            s = s
+                    .replace("\"", "\\\"")
+                    .replaceAll("\\[", "\"\\[")
+                    .replace("]", "]\"")
+                    .replace("{", "\"{")
+                    .replace("}", "}\"")
+                    .replace("\n", "");
+            /*s = s
+//                        .replace("\\", "")
+                    .replace(",\\\"", ",\"")
+                    .replace("\"", "\\\"")
+                    .replace("\":", "\\\":")
+                    .replace(":\"", ":\\\"")
+                    .replaceAll("\\[", "\"\\[")
+                    .replace("]\"", "]")
+                    .replace("{", "\"{")
+                    .replace("}", "}\"");
+            s = s
+//                        .replace("\\", "")
+                    .replace(",\\\"", ",\"")
+                    .replace("\"", "\\\"")
+                    .replace("\":", "\\\":")
+                    .replace(":\"", ":\\\"")
+                    .replaceAll("\\[", "\"\\[")
+                    .replace("]\"", "]")
+                    .replace("{", "\"{")
+                    .replace("}", "}\"");*/
             stringBuilder.append(
                     s
-                            .replace("\"", "\\\"")
-                            .replaceAll("\\[", "\"\\[")
-                            .replace("]", "]\"")
-                            .replace("{", "\"{")
-                            .replace("}", "}\"")
             );
         }
 //        stringBuilder.replace(stringBuilder.length()-2, stringBuilder.length()-1, "");
@@ -547,6 +584,46 @@ public class FileIOTest {
     }
 
     /**
+     * 查找重复数据
+     * @throws IOException
+     */
+    @Test
+    public void findDataDeduplication() throws IOException {
+        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
+        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        FileReader fileReader = new FileReader(fileOfIn);
+        FileWriter fileWriter = new FileWriter(fileOfOut);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        List<String> stringList = new ArrayList<>();
+        List<String> stringList1 = new ArrayList<>();
+        List<String> stringList2 = new ArrayList<>();
+        boolean flag = false;
+        while (true) {
+            String s = bufferedReader.readLine();
+            if (StringUtils.isBlank(s)) {
+                break;
+            }
+            if ("------".equals(s)) {
+                flag = true;
+            }
+            s = s.trim();
+            if (flag) {
+                stringList1.add(s);
+            } else {
+                stringList.add(s);
+            }
+        }
+        for (String s : stringList) {
+            if (stringList1.contains(s)) {
+                stringList2.add(s);
+            }
+        }
+        bufferedWriter.write(stringList2.toString());
+        bufferedWriter.flush();
+    }
+
+    /**
      * 从JSON格式的接口日志中提取内容，并统计大小
      * @throws IOException
      */
@@ -631,6 +708,38 @@ public class FileIOTest {
             CloseableHttpResponse execute = httpClient.execute(http);
 
             inputStream = execute.getEntity().getContent();
+            File file = new File("D:\\temp\\a.docx");
+            fileOutputStream = new FileOutputStream(file);
+            int b;
+            while ((b = inputStream.read()) != -1) {
+                fileOutputStream.write(b);
+            }
+            fileOutputStream.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fileOutputStream.close();
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @Test
+    public void downloadFileTest1() {
+        String fileUrl = "http://10.10.101.71:9000/dev-private-bucket/purchase-contract/3/522b202304d44b1b9c75f8703b7c62e0@测试合同-炼化-1018-cyq.docx";
+
+        FileOutputStream fileOutputStream = null;
+        InputStream inputStream = null;
+        try {
+            inputStream = new URL(fileUrl).openStream();
             File file = new File("D:\\temp\\a.docx");
             fileOutputStream = new FileOutputStream(file);
             int b;
