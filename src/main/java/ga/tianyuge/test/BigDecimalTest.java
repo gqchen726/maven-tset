@@ -186,6 +186,15 @@ public class BigDecimalTest {
     }
 
     @Test
+    public void compareTest() {
+        BigDecimal bigDecimal = new BigDecimal("23423.0000000000000000000000");
+        BigDecimal bigDecimal1 = new BigDecimal("23423.0000000000000000000000");
+        if (bigDecimal.compareTo(bigDecimal1) == 0) {
+            System.out.print("111");
+        }
+    }
+
+    @Test
     public void errorTest() {
         String a = "763,280.46";
         BigDecimal bigDecimal = new BigDecimal(a.replace(",",""));

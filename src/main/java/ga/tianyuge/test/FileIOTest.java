@@ -1,5 +1,6 @@
 package ga.tianyuge.test;
 
+import cn.hutool.core.codec.Base64Encoder;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.collections4.CollectionUtils;
@@ -10,6 +11,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.junit.Test;
 
 import java.io.*;
@@ -43,6 +47,40 @@ public class FileIOTest {
             e.printStackTrace();
         }
     }
+
+    public String readByFile() throws IOException {
+        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
+        FileReader fileReader = new FileReader(fileOfIn);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        StringBuilder stringBuilder = new StringBuilder();
+        while (true) {
+            String s = bufferedReader.readLine();
+            if (StringUtils.isBlank(s)) {
+                break;
+            }
+            stringBuilder.append(s);
+        }
+        return stringBuilder.toString();
+    }
+
+    public OutputStream writeToFile(String str) throws IOException {
+        // 创建新的Word文档
+        XWPFDocument document = new XWPFDocument();
+
+        // 创建新的段落
+        XWPFParagraph paragraph = document.createParagraph();
+
+        // 将String添加到段落中
+        XWPFRun run = paragraph.createRun();
+        run.setText(str);
+
+        // 将文档写入到文件中
+        FileOutputStream out = new FileOutputStream("document.docx");
+        document.write(out);
+        out.close();
+        return out;
+    }
+
 
     /**
      * 数据库复制出来的数据转化为markDown表格格式
@@ -93,17 +131,30 @@ public class FileIOTest {
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        StringBuilder stringBuilder = new StringBuilder();
+        List<String> stringList = new ArrayList<>(1);
+        StringBuilder stringBuilder = new StringBuilder("(");
+        int index = 0;
         while (true) {
             String s = bufferedReader.readLine();
             if (StringUtils.isBlank(s)) {
                 break;
             }
             s = s.trim();
-            stringBuilder.append("'").append(s).append("'").append(",");
+            stringList.add(s);
         }
-//        stringBuilder.replace(stringBuilder.length()-2, stringBuilder.length()-1, "");
+        stringList = stringList.stream()
+                .distinct().collect(Collectors.toList());
+        for (String s : stringList) {
+            stringBuilder.append("'").append(s).append("'").append(",");
+            if (++index == 1000) {
+                index = 0;
+                stringBuilder.deleteCharAt(stringBuilder.length()-1);
+                stringBuilder.append(") or (");
+            }
+        }
         stringBuilder.deleteCharAt(stringBuilder.length()-1);
+        stringBuilder.append(")");
+//        stringBuilder.replace(stringBuilder.length()-2, stringBuilder.length()-1, "");
         bufferedWriter.write(stringBuilder.toString());
         bufferedWriter.flush();
     }
@@ -208,6 +259,36 @@ public class FileIOTest {
 //        stringBuilder.replace(stringBuilder.length()-2, stringBuilder.length()-1, "");
         stringBuilder.deleteCharAt(stringBuilder.length()-1);
         bufferedWriter.write(stringBuilder.toString());
+        bufferedWriter.flush();
+    }
+
+    /**
+     * 压缩日志中复制的格式化报文,BASE64编码
+     * @throws IOException
+     */
+    @Test
+    public void logDataConvertSingleLine() throws IOException {
+        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
+        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        FileReader fileReader = new FileReader(fileOfIn);
+        FileWriter fileWriter = new FileWriter(fileOfOut);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        StringBuilder stringBuilder = new StringBuilder();
+        while (true) {
+            String s = bufferedReader.readLine();
+            if (StringUtils.isBlank(s)) {
+                break;
+            }
+            stringBuilder.append(s.trim());
+        }
+//        stringBuilder.deleteCharAt(0);
+//        stringBuilder.deleteCharAt(stringBuilder.length()-1);
+        String s = stringBuilder.toString();
+        bufferedWriter.write(s);
+        bufferedWriter.write("\n");
+        String encode = Base64Encoder.encode(s);
+        bufferedWriter.write(encode);
         bufferedWriter.flush();
     }
 

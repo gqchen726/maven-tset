@@ -1,8 +1,13 @@
 package ga.tianyuge.test;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -83,6 +88,33 @@ public class StringTest {
                 System.out.println(s);
             }
         }
+    }
+
+    @Test
+    public void containTest() throws IOException {
+        String str = "STATUS\":\"F";
+        FileIOTest fileIOTest = new FileIOTest();
+        String s = fileIOTest.readByFile();
+        System.out.println(s);
+        System.out.println(str);
+        System.out.println(s.contains(str));
+    }
+
+    @Test
+    public void dealWithXml() throws IOException {
+        FileIOTest fileIOTest = new FileIOTest();
+        String s = fileIOTest.readByFile();
+        String s1 = StringEscapeUtils.escapeXml(s);
+    }
+
+    @Test
+    public void substringTest() throws Exception {
+        String fileUrl = "http://scptest.shenghongpec.com:9000/dev-private-bucket/hsdr01/3/d6366f88e17c4ae7ad8038fb2876953e@test.docx";
+        System.out.println(fileUrl.substring(fileUrl.lastIndexOf("/") + 1));
+        URL url = new URL(fileUrl);
+        InputStream inputStream = url.openStream();
+        OutputStream outputStream = new ByteArrayOutputStream();
+        IOUtils.copy(url.openStream(), outputStream);
     }
 
 
