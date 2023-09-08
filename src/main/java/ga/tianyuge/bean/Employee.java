@@ -38,6 +38,10 @@ public class Employee {
     public Employee() {
     }
 
+    public Employee(String employeeCode) {
+        this.employeeCode = employeeCode;
+    }
+
     public Employee(String employeeCode, String name) {
         this.employeeCode = employeeCode;
         this.name = name;
@@ -108,5 +112,19 @@ public class Employee {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", employeeCode='" + employeeCode + '\'' +
+                ", name='" + name + '\'' +
+                ", approvalStatus='" + approvalStatus + '\'' +
+                ", approverCode='" + approverCode + '\'' +
+                ", approverName='" + approverName + '\'' +
+                ", price=" + price +
+                ", flex=" + flex +
+                '}';
     }
 }

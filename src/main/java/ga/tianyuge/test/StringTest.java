@@ -117,5 +117,14 @@ public class StringTest {
         IOUtils.copy(url.openStream(), outputStream);
     }
 
+    @Test
+    public void splitTest1() {
+        String str = "http://shsrm.shenghongpec.com:39000/srm-prod-private-bucket/spfm-comp/0/412e5a12c16948c38945d3a685a061e6@巨榭营业执照（副本）2021年.pdf";
+        System.out.println(str.split("/", 5)[4]);
+    }
 
+    @Test
+    public void nullTestToStringTest() {
+        System.out.println("".toString());
+    }
 }
