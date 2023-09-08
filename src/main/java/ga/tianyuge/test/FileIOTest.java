@@ -27,6 +27,8 @@ import java.util.stream.Collectors;
  **/
 
 public class FileIOTest {
+    
+    private static final String path = "C:\\temp\\";
 
     public static void main(String[] args) {
         read("C:\\temp\\POS_CN_ADP_1001_POSIPL_20220126_042452_000001.dat");
@@ -88,8 +90,8 @@ public class FileIOTest {
      */
     @Test
     public void dbDataConvertMdTableFormat() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -125,8 +127,8 @@ public class FileIOTest {
      */
     @Test
     public void dbDataConvertDbQueryListFormatOfString() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -165,8 +167,8 @@ public class FileIOTest {
      */
     @Test
     public void sumOfMoney() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -200,8 +202,8 @@ public class FileIOTest {
      */
     @Test
     public void dbDataConvertDbQueryListFormatOfInteger() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -227,8 +229,8 @@ public class FileIOTest {
      */
     @Test
     public void logDataConvertQueryParam() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -298,8 +300,8 @@ public class FileIOTest {
      */
     @Test
     public void textReplaceAllBackslash() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -347,8 +349,8 @@ public class FileIOTest {
      */
     @Test
     public void textReplaceAllBackslash1() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -401,7 +403,7 @@ public class FileIOTest {
 
     @Test
     public void findCharacter() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
+        File fileOfIn = new File(path + "test-in.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         while (true) {
@@ -421,9 +423,9 @@ public class FileIOTest {
     public void findStringNum() throws IOException {
         String key = "selectSettleWithSameAsnById -<==      Total: ";
         File fileOfIn =
-                new File("C:\\Users\\GuoqingChen01\\Desktop\\SHSH\\日志\\nohup-find-44.log");
+                new File(path + "SHSH\\日志\\nohup-find-44.log");
         File fileOfOut =
-                new File("C:\\Users\\GuoqingChen01\\Desktop\\SHSH\\日志\\nohup-find-44-result.log");
+                new File(path + "SHSH\\日志\\nohup-find-44-result.log");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -453,8 +455,8 @@ public class FileIOTest {
     @Test
     public void replaceAllPurchaseRequestToRedisCommand() throws IOException {
         String sourceStr = "{\"businessNum\":\"REQ\",\"code\":\"1\",\"processId\":\"844\",\"tenantId\":3,\"complete\":\"true\",\"tenetId\":3}";
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -488,8 +490,8 @@ public class FileIOTest {
      */
     @Test
     public void dealingWithSpecialCharacters() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -518,8 +520,8 @@ public class FileIOTest {
      */
     @Test
     public void replaceSpacesWithIndents() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -548,8 +550,8 @@ public class FileIOTest {
      */
     @Test
     public void dataComparison() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -601,8 +603,8 @@ public class FileIOTest {
      */
     @Test
     public void dataDeduplication() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -710,8 +712,8 @@ public class FileIOTest {
      */
     @Test
     public void extractContentFromJsonFormatInterfaceLog() throws IOException {
-        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
-        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
         FileWriter fileWriter = new FileWriter(fileOfOut);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -843,5 +845,31 @@ public class FileIOTest {
             }
         }
 
+    }
+
+    @Test
+    public void getTimestamp() {
+        System.out.println(Calendar.getInstance().getTimeInMillis());
+    }
+
+    @Test
+    public void urlFormat() throws IOException {
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
+        FileReader fileReader = new FileReader(fileOfIn);
+        FileWriter fileWriter = new FileWriter(fileOfOut);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        StringBuilder stringBuilder = new StringBuilder();
+        while (true) {
+            String s = bufferedReader.readLine();
+            if (StringUtils.isBlank(s)) {
+                break;
+            }
+            s = s.trim().replace("&amp;", "&");
+            stringBuilder.append(s);
+        }
+        bufferedWriter.write(stringBuilder.toString());
+        bufferedWriter.flush();
     }
 }

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.junit.Test;
 
 import java.io.*;
@@ -19,6 +20,9 @@ import java.util.Map;
 
 @Slf4j
 public class POITest {
+    String basePath = "C:\\Users\\陈国庆\\Documents";
+    String inputFile = basePath + "\\test.docx";
+    String outFile = basePath + "\\Output.pdf";
 
     @Test
     public void HSSFTest() {
@@ -274,5 +278,22 @@ public class POITest {
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
         return cellStyle;
+    }
+
+    public void word2pdf() throws Exception {
+        FileInputStream fileInputStream = null;
+        FileOutputStream  fileOutputStream=null;
+        try {
+            FileInputStream inputStream = new FileInputStream("input.docx");
+//            XWPFDocument document = new XWPFDocument(inputStream);
+//            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("output.pdf"));
+//            writer.setPdfVersion(PdfWriter.PDF_VERSION_1_7);
+//            writer.setViewerPreferences(PdfWriter.HideToolbar);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            fileInputStream.close();
+            fileOutputStream.close();
+        }
     }
 }
