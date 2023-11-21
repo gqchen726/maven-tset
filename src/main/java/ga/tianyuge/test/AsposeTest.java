@@ -4,8 +4,10 @@ package ga.tianyuge.test;
 import com.aspose.words.*;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 
 */
 /**
@@ -16,6 +18,10 @@ import java.io.FileOutputStream;
  *//*
 
 public class AsposeTest {
+    private static final PdfSaveOptions DEFAULT_PDF_SAVE_OPTIONS = new PdfSaveOptions();
+    String basePath = "C:\\Users\\陈国庆\\Documents";
+    String inputFile = basePath + "\\test.docx";
+    String outFile = basePath + "\\Output.pdf";
 
     private String docPath = "C:\\Users\\GuoqingChen01\\Desktop\\temp\\test.docx";
     private PdfSaveOptions DEFAULT_PDF_SAVE_OPTIONS = new PdfSaveOptions();

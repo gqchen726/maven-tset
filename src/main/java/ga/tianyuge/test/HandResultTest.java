@@ -1,8 +1,6 @@
 package ga.tianyuge.test;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import ga.tianyuge.bean.Employee;
 import ga.tianyuge.bean.ResultInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +9,8 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.*;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.*;
