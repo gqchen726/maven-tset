@@ -191,6 +191,7 @@ public class FileIOTest {
             totalAmount = totalAmount.add(new BigDecimal(s));
         }*/
         bufferedWriter.write(totalAmount[0].stripTrailingZeros().toPlainString());
+        System.out.println("sum:" + totalAmount[0].stripTrailingZeros().toPlainString());
         bufferedWriter.flush();
     }
 
@@ -658,6 +659,63 @@ public class FileIOTest {
             bufferedWriter.write("--------以下为缺失数据---------");
             stringBuilder = new StringBuilder("\n");
             StringBuilder finalStringBuilder2 = stringBuilder;
+            missingData.forEach(t -> finalStringBuilder2.append(t).append("\n"));
+            bufferedWriter.write(stringBuilder.toString());
+        }
+        bufferedWriter.flush();
+    }
+
+    @Test
+    public void dataDeduplicationString() throws IOException {
+        File fileOfIn = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-in.txt");
+        File fileOfOut = new File("C:\\Users\\GuoqingChen01\\Desktop\\test-out.txt");
+        FileReader fileReader = new FileReader(fileOfIn);
+        FileWriter fileWriter = new FileWriter(fileOfOut);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        StringBuilder stringBuilder = new StringBuilder();
+        List<String> stringList = new ArrayList<>();
+        List<String> stringList1 = new ArrayList<>();
+        boolean flag = true;
+        while (true) {
+            String s = bufferedReader.readLine();
+            if (StringUtils.isBlank(s)) {
+                break;
+            }
+            if ("-".equals(s)) {
+                flag = false;
+            }
+            if (flag) {
+                stringList.add(s.trim());
+            } else {
+                stringList1.add(s.trim());
+            }
+        }
+        StringBuilder finalStringBuilder1 = stringBuilder;
+        bufferedWriter.write(stringBuilder.toString());
+        if (CollectionUtils.isNotEmpty(stringList)) {
+            // 查找重复数据
+            bufferedWriter.write("--------以下为重复数据---------");
+            List<String> duplicateData = new ArrayList<>();
+            stringBuilder = new StringBuilder("\n");
+            StringBuilder finalStringBuilder = stringBuilder;
+            for (String aLong : stringList) {
+                if (duplicateData.contains(aLong)) {
+                    finalStringBuilder.append(aLong).append("\n");
+                } else {
+                    duplicateData.add(aLong);
+                }
+            }
+            bufferedWriter.write(stringBuilder.toString());
+            // 查找缺失数据
+            List<String> missingData = new ArrayList<>(stringList);
+            missingData.removeAll(stringList1);
+            bufferedWriter.write("--------以下为缺失数据---------");
+            stringBuilder = new StringBuilder("\n");
+            StringBuilder finalStringBuilder2 = stringBuilder;
+            missingData.forEach(t -> finalStringBuilder2.append(t).append("\n"));
+            missingData = new ArrayList<>(stringList1);
+            missingData.removeAll(stringList);
             missingData.forEach(t -> finalStringBuilder2.append(t).append("\n"));
             bufferedWriter.write(stringBuilder.toString());
         }

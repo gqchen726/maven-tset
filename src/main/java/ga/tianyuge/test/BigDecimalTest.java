@@ -187,9 +187,11 @@ public class BigDecimalTest {
 
     @Test
     public void compareTest() {
-        BigDecimal bigDecimal = new BigDecimal("23423.0000000000000000000000");
-        BigDecimal bigDecimal1 = new BigDecimal("23423.0000000000000000000000");
-        if (bigDecimal.compareTo(bigDecimal1) == 0) {
+        BigDecimal bigDecimal = BigDecimal.ZERO;
+        BigDecimal bigDecimal1 = new BigDecimal("14246.4000000000");
+        bigDecimal = bigDecimal.subtract(bigDecimal1);
+        System.out.println(bigDecimal.compareTo(BigDecimal.ZERO) > 0);
+        if (bigDecimal.compareTo(bigDecimal1) > 0) {
             System.out.print("111");
         }
     }
