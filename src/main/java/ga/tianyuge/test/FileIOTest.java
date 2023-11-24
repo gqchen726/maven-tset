@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 public class FileIOTest {
     
-    private static final String path = "C:\\temp\\";
+    private static final String path = "C:\\Temp\\";
 
     public static void main(String[] args) {
         read("C:\\temp\\POS_CN_ADP_1001_POSIPL_20220126_042452_000001.dat");
@@ -365,7 +365,64 @@ public class FileIOTest {
             s = s.trim();
             s = s
                     .replace("\"", "\\\"")
+                    .replaceAll("\\[", "\"[")
+                    .replace("]", "]\"")
+                    .replace("{", "\"{")
+                    .replace("}", "}\"")
+                    .replace("\n", "");
+            /*s = s
+//                        .replace("\\", "")
+                    .replace(",\\\"", ",\"")
+                    .replace("\"", "\\\"")
+                    .replace("\":", "\\\":")
+                    .replace(":\"", ":\\\"")
                     .replaceAll("\\[", "\"\\[")
+                    .replace("]\"", "]")
+                    .replace("{", "\"{")
+                    .replace("}", "}\"");
+            s = s
+//                        .replace("\\", "")
+                    .replace(",\\\"", ",\"")
+                    .replace("\"", "\\\"")
+                    .replace("\":", "\\\":")
+                    .replace(":\"", ":\\\"")
+                    .replaceAll("\\[", "\"\\[")
+                    .replace("]\"", "]")
+                    .replace("{", "\"{")
+                    .replace("}", "}\"");*/
+            stringBuilder.append(
+                    s
+            );
+        }
+//        stringBuilder.replace(stringBuilder.length()-2, stringBuilder.length()-1, "");
+        /*// 删除头尾引号
+        stringBuilder.deleteCharAt(0);stringBuilder.re
+        stringBuilder.deleteCharAt(stringBuilder.length()-1);*/
+        bufferedWriter.write(stringBuilder.toString());
+        bufferedWriter.flush();
+    }
+/**
+     * 给json数据添加反斜杠
+     * @throws IOException
+     */
+    @Test
+    public void textReplaceAllBackslash2() throws IOException {
+        File fileOfIn = new File(path + "test-in.txt");
+        File fileOfOut = new File(path + "test-out.txt");
+        FileReader fileReader = new FileReader(fileOfIn);
+        FileWriter fileWriter = new FileWriter(fileOfOut);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        StringBuilder stringBuilder = new StringBuilder();
+        while (true) {
+            String s = bufferedReader.readLine();
+            if (StringUtils.isBlank(s)) {
+                break;
+            }
+            s = s.trim();
+            s = s
+                    .replace("\"", "\\\"")
+                    .replaceAll("\\[", "\"[")
                     .replace("]", "]\"")
                     .replace("{", "\"{")
                     .replace("}", "}\"")
