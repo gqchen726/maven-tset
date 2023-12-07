@@ -20,6 +20,8 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 public class FileIOTest {
     
     private static final String path = "C:\\Temp\\";
+    private static final String javaFilePath = "C:\\workspace\\workspace-idea\\SHSH\\srm-settle-account-op\\src\\main\\java\\org\\srm\\settleaccount\\cux\\api\\dto\\ShshWmsRequestDto.java";
 
     public static void main(String[] args) {
         read("C:\\temp\\POS_CN_ADP_1001_POSIPL_20220126_042452_000001.dat");
@@ -300,7 +303,7 @@ public class FileIOTest {
      * @throws IOException
      */
     @Test
-    public void textReplaceAllBackslash() throws IOException {
+    public void textReplaceAllBackslash2json() throws IOException {
         File fileOfIn = new File(path + "test-in.txt");
         File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
@@ -349,7 +352,7 @@ public class FileIOTest {
      * @throws IOException
      */
     @Test
-    public void textReplaceAllBackslash1() throws IOException {
+    public void jsonAddBackslash1() throws IOException {
         File fileOfIn = new File(path + "test-in.txt");
         File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
@@ -401,12 +404,12 @@ public class FileIOTest {
         bufferedWriter.write(stringBuilder.toString());
         bufferedWriter.flush();
     }
-/**
+    /**
      * 给json数据添加反斜杠
      * @throws IOException
      */
     @Test
-    public void textReplaceAllBackslash2() throws IOException {
+    public void jsonAddBackslash2() throws IOException {
         File fileOfIn = new File(path + "test-in.txt");
         File fileOfOut = new File(path + "test-out.txt");
         FileReader fileReader = new FileReader(fileOfIn);
@@ -653,6 +656,89 @@ public class FileIOTest {
                 .append("\n");
         bufferedWriter.write(stringBuilder.toString());
         bufferedWriter.flush();
+    }
+
+    /**
+     * 读取java文件，读取其中的属性名、属性类型、属性含义
+     */
+    @Test
+    public void readFileAndAnalyze() throws IOException {
+        // 创建一个List，其中包含固定值，private、@ApiModelProperty
+        List<String> list = new ArrayList<>();
+        list.add("private");
+        list.add("@ApiModelProperty");
+        // 创建一个正则表达式的List, 放入的正则表达式为：[a-z]* [a-z0-9]*; 、@ApiModelProperty\(value \= "[\u4E00-\u9FA5a-z0-9]*"\)
+        List<Pattern> patternList = new ArrayList<>();
+        patternList.add(Pattern.compile("[a-zA-Z<>]* [a-zA-Z0-9]*;"));
+        patternList.add(Pattern.compile("@ApiModelProperty\\(value = \"([^\"]+)\"\\)"));
+
+        Pattern endPattern = Pattern.compile("^}");
+//        File file = new File(path + "test-in.txt");
+        File file = new File(javaFilePath);
+
+        List<String> columnNameList = new ArrayList<>();
+        List<String> columnTypeList = new ArrayList<>();
+        List<String> columnCommentList = new ArrayList<>();
+        FileReader fileReader;
+        fileReader = new FileReader(file);
+        BufferedReader bufferedReader;
+        bufferedReader = new BufferedReader(fileReader);
+        File fileOfOut = new File(path + "test-out.txt");
+        FileWriter fileWriter = new FileWriter(fileOfOut);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        try {
+            // 在读取文件的时候跳过空行
+            while (true) {
+                String s = bufferedReader.readLine();
+                // 跳过空行
+                if (StringUtils.isBlank(s)) {
+                    continue;
+                }
+                s = s.trim();
+//                System.out.println(s);
+                // 在这里我需要判断s字符串中是否包含list中的值
+                for (String str : list) {
+                    if (s.contains(str)) {
+                        // 在字符串s中如果是定义java变量的语法或者是注解@ApiModelProperty语法，则提取出s中的java变量名称、java变量类型、ApiModelProperty注解的value值
+                        // 使用正则表达式获取@ApiModelProperty(value = "公司编码")中的"公司编码"汉字
+                        for (Pattern pattern : patternList) {
+                            Matcher matcher = pattern.matcher(s);
+                            String group = "";
+                            if (matcher.find()) {
+                                if ("private".equals(str)) {
+                                    group = matcher.group().replace(";", "");
+//                                    System.out.println(group.split(" ")[0]);
+                                    columnTypeList.add(group.split(" ")[0]);
+//                                    System.out.println(group.split(" ")[1]);
+                                    columnNameList.add(group.split(" ")[1]);
+                                } else {
+//                                    System.out.println(matcher.group(1));
+                                    columnCommentList.add(matcher.group(1));
+                                }
+                            }
+                        }
+                    }
+                }
+                if (endPattern.matcher(s).find()) {
+                    break;
+                }
+            }
+            bufferedWriter.write(file.getPath() + "\n");
+            bufferedWriter.write("-------------------columnCommentList-------------------\n");
+            bufferedWriter.write(String.join("\n", columnCommentList) + "\n");
+            bufferedWriter.write("-------------------columnNameList-------------------\n");
+            bufferedWriter.write(String.join("\n", columnNameList) + "\n");
+            bufferedWriter.write("-------------------columnTypeList-------------------\n");
+            bufferedWriter.write(String.join("\n", columnTypeList) + "\n");
+            bufferedWriter.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            bufferedReader.close();
+            fileReader.close();
+            bufferedWriter.close();
+            fileWriter.close();
+        }
     }
 
     /**
