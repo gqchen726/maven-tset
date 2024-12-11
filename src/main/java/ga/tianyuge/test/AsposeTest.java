@@ -1,6 +1,5 @@
-/*
 package ga.tianyuge.test;
-
+/*
 import com.aspose.words.*;
 import org.junit.Test;
 
@@ -10,12 +9,21 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 
 */
+
+import com.aspose.words.Document;
+import com.aspose.words.FontSettings;
+import com.aspose.words.PdfSaveOptions;
+import org.junit.Test;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 /**
  * @Description: description
  * @author: GuoqingChen
  * @Time: 2023/02/03 17:24
  * @Email: guoqing.chen01@hand-china.com
- *//*
+ */
 
 public class AsposeTest {
     private static final PdfSaveOptions DEFAULT_PDF_SAVE_OPTIONS = new PdfSaveOptions();
@@ -23,11 +31,10 @@ public class AsposeTest {
     String inputFile = basePath + "\\test.docx";
     String outFile = basePath + "\\Output.pdf";
 
-    private String docPath = "C:\\Users\\GuoqingChen01\\Desktop\\temp\\test.docx";
-    private PdfSaveOptions DEFAULT_PDF_SAVE_OPTIONS = new PdfSaveOptions();
-    private String outPath = "C:\\Users\\GuoqingChen01\\Documents\\Output.pdf";
+    private String docPath = "C:\\Users\\sa\\Documents\\test.docx";
+    private String outPath = "C:\\Users\\sa\\Documents\\Output.pdf";
 
-    {
+    static {
         DEFAULT_PDF_SAVE_OPTIONS.setCompliance(3);
         DEFAULT_PDF_SAVE_OPTIONS.setPrettyFormat(true);
     }
@@ -40,11 +47,12 @@ public class AsposeTest {
 
     @Test
     public void wordConvertPdfOfStreamTest() throws Exception {
-        FontSettings.getDefaultInstance().getSubstitutionSettings().getDefaultFontSubstitution().setDefaultFontName("WenQuanYi Micro Hei");
+        FontSettings defaultInstance = FontSettings.getDefaultInstance();
+        defaultInstance.getSubstitutionSettings().getDefaultFontSubstitution().setDefaultFontName("WenQuanYi Micro Hei xxx");
+        defaultInstance.setFontsFolder("C:\\Windows\\Fonts_test", true);
         FileInputStream fileInputStream = new FileInputStream(docPath);
         Document doc = new Document(fileInputStream);
         FileOutputStream fileOutputStream = new FileOutputStream(outPath);
         doc.save(fileOutputStream, DEFAULT_PDF_SAVE_OPTIONS);
     }
 }
-*/

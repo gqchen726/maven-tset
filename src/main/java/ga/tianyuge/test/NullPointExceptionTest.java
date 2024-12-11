@@ -23,11 +23,19 @@ public class NullPointExceptionTest {
         Integer a = null;
 //        System.out.println(a == 0);
         try {
-            System.out.println(0 == a);
+//            System.out.println(0 == a);
+            System.out.println(a == 0);
 
         } catch (Exception e) {
-            System.out.println(e.getCause().toString());
+//            System.out.println(e.getCause().toString());
+            e.printStackTrace();
         }
 //        System.out.println();
+    }
+
+    @Test
+    public void euqualsNullText() {
+        Long a = null;
+        System.out.println(a == 1);
     }
 }

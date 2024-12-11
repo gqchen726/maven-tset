@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -126,5 +128,30 @@ public class StringTest {
     @Test
     public void nullTestToStringTest() {
         System.out.println("".toString());
+    }
+
+    @Test
+    public void subStringTest() {
+        String levelPath = "88";
+        System.out.println(levelPath.substring(levelPath.indexOf("|") + 1));
+        if (levelPath.indexOf("|") != levelPath.lastIndexOf("|")) {
+            System.out.println(levelPath.substring(0, levelPath.indexOf("|")));
+        }
+    }
+
+    @Test
+    public void containsTest() throws URISyntaxException {
+        String api = "http://1.1.1.1/iam/hzero/users/self";
+        URI uri = new URI(api);
+        String whileApi = "/iam/hzero/users/self";
+        System.out.println(uri.toString().contains(whileApi));
+    }
+
+    @Test
+    public void vaguePhoneTest() {
+//        String data = "18907894672";
+        String data = "142427199810071980";
+//        System.out.println(String.format("%s****%s", data.substring(0, 3), data.substring(7, 11)));
+        System.out.println(String.format("%s****%s", data.substring(0, 3), data.substring(14, 18)));
     }
 }

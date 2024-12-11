@@ -23,10 +23,12 @@ public class DateTest {
     public static final SimpleDateFormat HMS = new SimpleDateFormat("HH:mm:ss");
     public static final SimpleDateFormat YMD = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat YMDHMS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat YMDHMSS = new SimpleDateFormat("yyyyMMddHHmmssSS");
+    private static final SimpleDateFormat YMDHMSNF = new SimpleDateFormat("yyyyMMddHHmmss");
     public static final SimpleDateFormat YYYYMMDD = new SimpleDateFormat("yyyyMMdd");
 
     @Test
-    public void test1(String[] args) throws ParseException {
+    public void test1() throws ParseException {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
@@ -101,7 +103,7 @@ public class DateTest {
     }
 
     @Test
-    public void test1() {
+    public void test2() {
         SimpleDateFormat YYYYMMDD1 = new SimpleDateFormat("yyyyMMdd");
         String dateStr = "2022.07.28";
         Date parse = null;
@@ -113,7 +115,14 @@ public class DateTest {
         System.out.println(parse);
     }
 
+    @Test
+    public void test3() {
+        Date date = new Date();
+        System.out.println(YMDHMSNF.format(date));
+    }
+
+
     public static void main(String[] args) {
-        new DateTest().test1();
+        new DateTest().test2();
     }
 }

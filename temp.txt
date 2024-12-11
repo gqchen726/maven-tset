@@ -1,17 +1,1 @@
-select spl.quantity 订单数量,sps.quantity 原协议数量,sps1.quantity 变更协议数量,
-spl.tax_id 订单税率id, sps.tax_id 原协议税率id,sps1.tax_id 变更协议税率id,
-spl.tax_rate 订单税率, sps.tax_rate 原协议税率,sps1.tax_rate 变更协议税率,
-spl.remark 订单备注, sps.remark 原协议备注,sps1.remark 变更协议备注,
-spl.unit_price 订单单价, sps.unit_price 原协议单价,sps1.unit_price 变更协议单价,
-spl.tax_included_line_amount 订单含税行金额, sps.tax_included_line_amount 原协议含税行金额,sps1.tax_included_line_amount 变更协议含税行金额,
-spl.pc_subject_id 订单关联协议标的id, sps.pc_subject_id 原协议协议标的id, sps1.pc_subject_id 变更协议协议标的id
-from sodr_po_line spl
-left join sodr_po_header sph on spl.po_header_id = sph.po_header_id
-left join spcm_pc_header spch on sph.attribute_varchar2 = spch.pc_num 
-left join spcm_pc_subject sps on spch.pc_header_id = sps.pc_header_id and sps.line_num = spl.line_num and sps.item_id = spl.item_id
-left join spcm_pc_header spch1 on spch1.main_contract_id = spch.pc_header_id
-left join spcm_pc_subject sps1 on spch1.pc_header_id = sps1.pc_header_id and sps1.line_num = spl.line_num and sps1.item_id = spl.item_id
-where 1=1
-and sph.po_num = 'PO52002023002684'
--- and spch.pc_num = ''
--- and spch1.pc_num = ''
+<?xml version="1.0" standalone="no"?><b:Sources SelectedStyle="\APA.XSL" StyleName="APA" xmlns:b="http://schemas.openxmlformats.org/officeDocument/2006/bibliography" xmlns="http://schemas.openxmlformats.org/officeDocument/2006/bibliography"></b:Sources>

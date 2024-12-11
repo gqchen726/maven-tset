@@ -151,6 +151,18 @@ public class BigDecimalTest {
     }
 
     @Test
+    public void string2BigDecimalTest() {
+        String a = "1";
+        System.out.println(new BigDecimal(a).stripTrailingZeros().toPlainString());
+    }
+
+    @Test
+    public void divideTest() {
+        BigDecimal bigDecimal = new BigDecimal(13);
+        System.out.println(bigDecimal.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP));
+    }
+
+    @Test
     public void test2() {
         System.out.println(BigDecimal.valueOf(10.04).doubleValue());
     }
