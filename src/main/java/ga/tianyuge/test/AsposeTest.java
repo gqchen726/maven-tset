@@ -49,7 +49,7 @@ public class AsposeTest {
     public void wordConvertPdfOfStreamTest() throws Exception {
         FontSettings defaultInstance = FontSettings.getDefaultInstance();
         defaultInstance.getSubstitutionSettings().getDefaultFontSubstitution().setDefaultFontName("WenQuanYi Micro Hei xxx");
-        defaultInstance.setFontsFolder("C:\\Windows\\Fonts_test", true);
+//        defaultInstance.setFontsFolder("C:\\Windows\\Fonts_test", true);
         FileInputStream fileInputStream = new FileInputStream(docPath);
         Document doc = new Document(fileInputStream);
         FileOutputStream fileOutputStream = new FileOutputStream(outPath);
