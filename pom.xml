@@ -104,10 +104,21 @@
 
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <dependency>
+        <!--<dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.14.1</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.7</version>
         </dependency>
 
 
@@ -118,12 +129,12 @@
             <version>4.13</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.aspose</groupId>
             <artifactId>aspose-words</artifactId>
             <version>20.2</version>
-            <!--<type>pom</type>-->
-        </dependency>
+            &lt;!&ndash;<type>pom</type>&ndash;&gt;
+        </dependency>-->
         <!--<dependency>
             <groupId>com.aspose</groupId>
             <artifactId>aspose-words</artifactId>
@@ -257,26 +268,18 @@
             <version>1.27</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.tsign</groupId>
             <artifactId>tgtext</artifactId>
-            <version>3.3.49.2142</version>
-        </dependency>
+            <version>3.2.0</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.29</version> </dependency>
 
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>nexus-aliyun</id>
-            <name>Nexus Aliyun</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-        </repository>
-        <repository>
-            <id>AsposeJavaAPI</id>
-            <name>Aspose Java API</name>
-            <url>https://releases.aspose.com/java/repo/</url>
-        </repository>
-    </repositories>
 
 
 

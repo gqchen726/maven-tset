@@ -105,7 +105,7 @@ public class DateTest {
     @Test
     public void test2() {
         SimpleDateFormat YYYYMMDD1 = new SimpleDateFormat("yyyyMMdd");
-        String dateStr = "2022.07.28";
+        String dateStr = "20220728";
         Date parse = null;
         try {
             parse = YYYYMMDD1.parse(dateStr);

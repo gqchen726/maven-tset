@@ -1,4 +1,6 @@
+/*
 package ga.tianyuge.test;
+*/
 /*
 import com.aspose.words.*;
 import org.junit.Test;
@@ -8,7 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
-*/
+*//*
+
 
 import com.aspose.words.Document;
 import com.aspose.words.FontSettings;
@@ -18,12 +21,14 @@ import org.junit.Test;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+*/
 /**
  * @Description: description
  * @author: GuoqingChen
  * @Time: 2023/02/03 17:24
  * @Email: guoqing.chen01@hand-china.com
- */
+ *//*
+
 
 public class AsposeTest {
     private static final PdfSaveOptions DEFAULT_PDF_SAVE_OPTIONS = new PdfSaveOptions();
@@ -56,3 +61,4 @@ public class AsposeTest {
         doc.save(fileOutputStream, DEFAULT_PDF_SAVE_OPTIONS);
     }
 }
+*/

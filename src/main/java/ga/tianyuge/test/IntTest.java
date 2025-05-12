@@ -15,4 +15,12 @@ public class IntTest {
         a = a.trim();
         System.out.println(Integer.parseInt(a));
     }
+
+    @Test
+    public void test1() {
+        int index = 0;
+        System.out.println(index);
+        System.out.println(index+=3);
+        System.out.println(index);
+    }
 }
