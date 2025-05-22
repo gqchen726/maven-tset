@@ -158,8 +158,8 @@ public class BigDecimalTest {
 
     @Test
     public void divideTest() {
-        BigDecimal bigDecimal = new BigDecimal(13);
-        System.out.println(bigDecimal.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP));
+        BigDecimal bigDecimal = new BigDecimal(2);
+        System.out.println(bigDecimal.divide(new BigDecimal(300000000), 10, RoundingMode.HALF_UP).toPlainString());
     }
 
     @Test
